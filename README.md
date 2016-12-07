@@ -4,7 +4,7 @@ This project is to create articles discussing common mistakes made by programmer
 # Articles (please update this list as you write articles):
 ## C++:
 
-- [ ] using namespace std
+- [x] using namespace std
  
 ## Python:
 

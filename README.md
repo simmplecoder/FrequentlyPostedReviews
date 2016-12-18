@@ -5,6 +5,7 @@ This project is to create articles discussing common mistakes made by programmer
 ## C++:
 
 - [x] using namespace std
+- [x] dynamic memory allocation
  
 ## Python:
 

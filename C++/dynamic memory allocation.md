@@ -2,7 +2,7 @@
 It is pretty common for beginners to allocate everything in the free store (also called heap, by calling `new` or `malloc()` or similar), but is there a better way? One should always try to make the best choice.
 
 ##Performance
-Currently most allocators are so complex that it becomes harder and harder to predict if the next allocation will be a system call, which will probably have an implicit mutex lock (it needs to acquire memory from the system which is shared, so there will be some overhead to maanage it). Though it is *guaranteed* that creating variable in the automatic storage (also known as stack) will certainly be faster, plus you don't need to `free()` or `delete` it since automatic storage automatically runs destructors and reclaims the memory. 
+Currently most allocators are so complex that it becomes harder and harder to predict if the next allocation will be a system call, which will probably have an implicit mutex lock (it needs to acquire memory from the system which is shared, so there will be some overhead to manage it). Though it is *guaranteed* that creating variable in the automatic storage (also known as stack) will certainly be faster, plus programmer don't need to `free()` or `delete` it since automatic storage automatically runs destructors and reclaims the memory. 
 Dynamic allocation also has a performance hit from fragmentation, e.g. the automatic storage in which some bookkeeping is stored (instructions) is usually further from the free store, which can be literally anywhere. Fragmentation leads to [cache misses](http://stackoverflow.com/questions/18559342/what-is-a-cache-hit-and-a-cache-miss-why-context-switching-would-cause-cache-mi).
 ##Ease of use
 It is much harder to get program that does dynamic allocation to get correct compared to program that primarily uses automatic storage. 
@@ -51,7 +51,7 @@ RAII (resource aquisition is initialization) is an idiom used to prevent resourc
         }
     }
 
-The example above clearly shows that most of the time standard containers (like `std::vector<>`) are better suited for memory management than handwritten version, since they have automatic memory management and programmer won't need to worry about memory leak during exceptiontional situations.
+The example above clearly shows that most of the time standard containers (like `std::vector<>`) are better suited for memory management than handwritten version, since they have automatic memory management which guarantees no memory leaks even in exceptional situations. 
 ##Caveats of automatic storage
 It is usually very small (on Windows, it is around 1MB), also it stores bookkeeping there. This means that allocating too much automatic storage will shorten recursion depth or any other deep function calls. g++ tries to increase automatic storage size, but it is not always possible. In general, size and lack of automatic storage is implementation defined. There is a well known exploit called buffer overflow. Exceeding automatic storage size will cause stack overflow, which is a type of buffer overflow.
 ##Summary
